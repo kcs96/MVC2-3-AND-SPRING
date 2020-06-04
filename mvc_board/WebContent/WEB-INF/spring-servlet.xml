@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc
+ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+   <bean id="default-handler-mapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+   <bean id="url-mapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"><!-- controllerMapper역할controller를 결정해준다. -->
+      <property name="mappings">
+         <props>
+            <prop key="/board/boardList.sp4">board-controller</prop>
+            <prop key="/board/boardList2.sp4">board-controller</prop>
+         </props>
+      </property>
+   </bean>
+   <bean id="board-controller" class="mvc.board.BoardController">
+      <property name="methodNameResolver" ref="board-resolver"/>
+      <property name="boardLogic" ref="board-logic"/>
+      
+   </bean>
+   <bean id="board-resolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+      <property name="mappings">
+         <props>
+            <prop key="/board/boardList.sp4">boardList</prop><!-- 메소드이름  -->
+            <prop key="/board/boardList2.sp4">boardList2</prop><!-- 메소드이름  -->
+         </props>
+      </property>
+   </bean>
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix">
+         <value>/WEB-INF/jsp/</value>
+      </property>
+      <property name="suffix">
+         <value>.jsp</value>
+      </property>
+   </bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
